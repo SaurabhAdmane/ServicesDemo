@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
-import com.saurabh.servicesdemo.R
+import android.widget.Toast
 import java.util.Random
 
 
@@ -13,31 +13,42 @@ import java.util.Random
 class IBinderService : Service() {
 
     val TAG = javaClass.name
-
     private var mRandomNumber = 0
     private var mIsRandomGeneratorOn = false
     private val MIN = 0
     private val MAX = 100
+    private val mBinder = MyServiceBinder()
 
-
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
+    override fun onBind(intent: Intent?): IBinder {
+        Toast.makeText(applicationContext, "In onBind", Toast.LENGTH_LONG).show()
+        Log.e(TAG, "In onBind")
+        return mBinder
     }
 
-    class IbinderDemo : Binder(){
-
+    override fun onUnbind(intent: Intent?): Boolean {
+        Toast.makeText(applicationContext, "In onUnbind", Toast.LENGTH_LONG).show()
+        Log.e(TAG, "In onUnbind")
+        return super.onUnbind(intent)
+    }
+    inner class MyServiceBinder : Binder() {
+        fun getService(): IBinderService {
+            return this@IBinderService
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        stopRandomNumberGenerator()
+        Toast.makeText(applicationContext, "In onDestroy", Toast.LENGTH_LONG).show()
         Log.e(TAG, "onDestroy called Service Stopped")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Toast.makeText(applicationContext, "In onStartCommand", Toast.LENGTH_LONG).show()
         Log.e(TAG, "onStartCommand Thread : ${Thread.currentThread().name}")
-        Log.i(
+        Log.e(
             TAG,
-            "In onStartCommend, thread id: " + Thread.currentThread().id
+            "onStartCommend, thread id: " + Thread.currentThread().id
         )
         mIsRandomGeneratorOn = true
         Thread { startRandomNumberGenerator() }.start()
@@ -50,7 +61,7 @@ class IBinderService : Service() {
                 Thread.sleep(1000)
                 if (mIsRandomGeneratorOn) {
                     mRandomNumber = Random().nextInt(MAX) + MIN
-                    Log.i(
+                    Log.e(
                         TAG,
                         "Thread id: " + Thread.currentThread().id + ", Random Number: " + mRandomNumber
                     )
