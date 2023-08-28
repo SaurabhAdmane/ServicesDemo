@@ -13,16 +13,16 @@ import java.util.Random
 class IBinderService : Service() {
 
     val TAG = javaClass.name
-    private var mRandomNumber = 0
-    private var mIsRandomGeneratorOn = false
+    private var randomNumber = 0
+    private var isRandomGeneratorOn = false
     private val MIN = 0
     private val MAX = 100
-    private val mBinder = MyServiceBinder()
+    private val iBinder = MyServiceBinder()
 
     override fun onBind(intent: Intent?): IBinder {
         Toast.makeText(applicationContext, "In onBind", Toast.LENGTH_LONG).show()
         Log.e(TAG, "In onBind")
-        return mBinder
+        return iBinder
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
@@ -30,6 +30,7 @@ class IBinderService : Service() {
         Log.e(TAG, "In onUnbind")
         return super.onUnbind(intent)
     }
+
     inner class MyServiceBinder : Binder() {
         fun getService(): IBinderService {
             return this@IBinderService
@@ -47,36 +48,35 @@ class IBinderService : Service() {
         Toast.makeText(applicationContext, "In onStartCommand", Toast.LENGTH_LONG).show()
         Log.e(TAG, "onStartCommand Thread : ${Thread.currentThread().name}")
         Log.e(
-            TAG,
-            "onStartCommend, thread id: " + Thread.currentThread().id
+            TAG, "onStartCommend, thread id: " + Thread.currentThread().id
         )
-        mIsRandomGeneratorOn = true
+        isRandomGeneratorOn = true
         Thread { startRandomNumberGenerator() }.start()
         return START_STICKY
     }
 
     private fun startRandomNumberGenerator() {
-        while (mIsRandomGeneratorOn) {
+        while (isRandomGeneratorOn) {
             try {
                 Thread.sleep(1000)
-                if (mIsRandomGeneratorOn) {
-                    mRandomNumber = Random().nextInt(MAX) + MIN
+                if (isRandomGeneratorOn) {
+                    randomNumber = Random().nextInt(MAX) + MIN
                     Log.e(
                         TAG,
-                        "Thread id: " + Thread.currentThread().id + ", Random Number: " + mRandomNumber
+                        "Thread id: " + Thread.currentThread().id + ", Random Number: " + randomNumber
                     )
                 }
             } catch (e: InterruptedException) {
-                Log.i(TAG, "Thread Interrupted")
+                Log.e(TAG, "Thread Interrupted")
             }
         }
     }
 
     private fun stopRandomNumberGenerator() {
-        mIsRandomGeneratorOn = false
+        isRandomGeneratorOn = false
     }
 
     fun getRandomNumber(): Int {
-        return mRandomNumber
+        return randomNumber
     }
 }

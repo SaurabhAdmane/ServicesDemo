@@ -10,25 +10,25 @@ import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
-import com.saurabh.servicesdemo.databinding.ActivityLocalBindingBinding
+import com.saurabh.servicesdemo.databinding.ActivityIBindingBinding
 import com.saurabh.servicesdemo.service.IBinderService
 
-
-class LocalBindingActivity : AppCompatActivity(), OnClickListener {
+// Also call Local Binding
+class IBindingActivity : AppCompatActivity(), OnClickListener {
 
     private var isServiceBound = false
     val TAG = javaClass.name
-    lateinit var binding: ActivityLocalBindingBinding
+    lateinit var binding: ActivityIBindingBinding
     lateinit var serviceIntent: Intent
     private var serviceConnection: ServiceConnection? = null
     lateinit var iBinderService: IBinderService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLocalBindingBinding.inflate(layoutInflater)
+        binding = ActivityIBindingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setClickListners()
-        Log.e(TAG, "LocalBindingActivity Thread : ${Thread.currentThread().name}")
+        Log.e(TAG, "IBindingActivity Thread : ${Thread.currentThread().name}")
         serviceIntent = Intent(applicationContext, IBinderService::class.java)
     }
 

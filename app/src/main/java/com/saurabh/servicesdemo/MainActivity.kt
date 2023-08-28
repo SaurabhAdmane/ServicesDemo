@@ -27,15 +27,13 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         when (v?.id) {
             R.id.btn_service -> startActivity(
                 Intent(
-                    applicationContext,
-                    MyServiceActivity::class.java
+                    applicationContext, MyServiceActivity::class.java
                 )
             )
 
             R.id.btn_ibinder_service -> startActivity(
                 Intent(
-                    applicationContext,
-                    LocalBindingActivity::class.java
+                    applicationContext, IBindingActivity::class.java
                 )
             )
         }

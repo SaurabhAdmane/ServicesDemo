@@ -26,7 +26,7 @@
             android:name=".MyServiceActivity"
             android:exported="true" />
         <activity
-            android:name=".LocalBindingActivity"
+            android:name=".IBindingActivity"
             android:exported="true"
             android:label="@string/local_binding_service" />
 
