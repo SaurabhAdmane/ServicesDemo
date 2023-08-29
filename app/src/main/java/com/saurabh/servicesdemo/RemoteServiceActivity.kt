@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.saurabh.servicesdemo.databinding.ActivityRemoteServiceBinding
 import com.saurabh.servicesdemo.service.RemoteService
 
+// To check this demo see ClientServiceBinderApp from below git link
+// github link https://github.com/SaurabhAdmane/ClientServiceBinder
 class RemoteServiceActivity:AppCompatActivity() , View.OnClickListener {
 
     val TAG = javaClass.name
