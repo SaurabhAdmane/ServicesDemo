@@ -29,7 +29,14 @@
             android:name=".IBindingActivity"
             android:exported="true"
             android:label="@string/local_binding_service" />
+        <activity
+            android:name="com.saurabh.servicesdemo.RemoteServiceActivity"
+            android:label="@string/remote_binding_service" />
 
+        <service
+            android:name=".service.RemoteService"
+            android:enabled="true"
+            android:exported="true" />
         <service android:name=".service.IBinderService" />
         <service android:name=".service.MyService" />
     </application>

@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     private fun setClickListners() {
         binding.btnService.setOnClickListener(this)
         binding.btnIbinderService.setOnClickListener(this)
+        binding.btnRemoteService.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -34,6 +35,12 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             R.id.btn_ibinder_service -> startActivity(
                 Intent(
                     applicationContext, IBindingActivity::class.java
+                )
+            )
+
+            R.id.btn_remote_service -> startActivity(
+                Intent(
+                    applicationContext, RemoteServiceActivity::class.java
                 )
             )
         }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ServicesDemo</string>
-    <string name="local_binding_service">Local Binding Service</string>
+    <string name="local_binding_service">IBinding Service</string>
+    <string name="remote_binding_service">Remote Binding Service</string>
 </resources>
